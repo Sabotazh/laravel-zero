@@ -1,57 +1,3 @@
-# Laravel Zero
-
-My attempts to master this framework.
-
-## Hello world
-
-```bash
-composer create-project --prefer-dist laravel-zero/laravel-zero hello-world
-```
-
-```bash
-php application app:rename spark
-```
-
-```bash
-php spark make:command HelloWorld
-```
-
-```php
-<?php
-
-namespace App\Commands;
-
-use LaravelZero\Framework\Commands\Command;
-
-class HelloWorld extends Command
-{
-    protected $signature = 'hello:world';
-
-    public function handle(): void
-    {
-        $this->info('Hello, Laravel Zero!');
-    }
-}
-```
-
-```bash
-php spark hello:world
-```
-
-## Weather
-
-```bash
-php spark app:rename weather
-```
-
-```bash
-php weather app:install http
-```
-
-```bash
-php weather make:command Weather
-```
-```php
 <?php
 
 namespace App\Commands;
@@ -64,8 +10,23 @@ use Throwable;
 
 class Weather extends Command
 {
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
     protected $signature = 'weather:show';
 
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Fetch and display current weather data';
+
+    /**
+     * Execute the console command.
+     */
     public function handle(): int
     {
         try {
@@ -104,6 +65,11 @@ class Weather extends Command
         }
     }
 
+    /**
+     * @param array<string, mixed> $current
+     * @param array<string, string> $units
+     * @return array{0: array<string>, 1: array<int, array<string, string>>}
+     */
     public function getTablePayload(array $current, array $units = []): array
     {
         $headers = ['Information', 'Value'];
@@ -161,13 +127,12 @@ class Weather extends Command
             default => 'Unknown',
         };
     }
+
+    /**
+     * Define the command's schedule.
+     */
+    public function schedule(Schedule $schedule): void
+    {
+        // $schedule->command(static::class)->everyMinute();
+    }
 }
-```
-
-```bash
-php weather weather:show
-```
-
-## License
-
-Licensed under the MIT license.

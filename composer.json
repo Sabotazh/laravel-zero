@@ -17,6 +17,7 @@
     ],
     "require": {
         "php": "^8.5",
+        "illuminate/http": "^13.0",
         "laravel-zero/foundation": "^13.25",
         "laravel-zero/framework": "^13.0"
     },
@@ -47,5 +48,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "bin": ["spark"]
+    "bin": ["weather"]
 }
